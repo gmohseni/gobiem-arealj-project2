@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/shape.css';
+
 
 export default class Card extends React.Component {
 

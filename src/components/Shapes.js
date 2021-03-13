@@ -14,7 +14,7 @@ import thirteen from '../imgs/onegreenpatterncircle.png';
 import fourteen from '../imgs/onegreenpatternrectangle.png';
 import fifteen from '../imgs/onegreenpatternsquare.png';
 import sixteen from '../imgs/onegreensolidcircle.png';
-import seventy from '../imgs/onegreensolidrectangle.png';
+import seventeen from '../imgs/onegreensolidrectangle.png';
 import eighteen from '../imgs/onegreensolidsquare.png';
 import nineteen from '../imgs/oneredclearcircle.png';
 import twenty from '../imgs/oneredclearrectangle.png';
