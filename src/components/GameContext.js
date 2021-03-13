@@ -1,18 +1,18 @@
 import React from 'react';
+import combineReducers from 'react-combine-reducers';
 import {createContext, useReducer} from 'react';
 import {Shapes} from './Shapes';
 import Card from "./Card";
-import combineReducers from 'react-combine-reducers';
 
 const initialState = {deck: [], board: []}
 
-export const GameContext = createContext();
+export const GameContext = createContext([]);
 
 function boardReducer(state, action) {
     if (action.type === "CREATE_BOARD") {
         let newBoard = [];
         let currentDeck = state.deck;
-        for (var i = currentDeck.length; i >=0; i--) {
+        for (let i = currentDeck.length; i >=0; i--) {
             if (newBoard.length !== 12) {
                 newBoard.push(currentDeck[i]);
                 currentDeck = currentDeck.pop(i);
@@ -23,7 +23,7 @@ function boardReducer(state, action) {
         let currentBoard = state.board;
         let currentDeck = state.deck;
         let num = 3;
-        for (var i = currentDeck.length; i >=0; i--) {
+        for (let i = currentDeck.length; i >=0; i--) {
             if (num !== 0) {
                 currentBoard.push(currentDeck[i]);
                 currentDeck = currentDeck.pop(i);
