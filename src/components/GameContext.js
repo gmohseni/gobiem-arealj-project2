@@ -4,7 +4,7 @@ import {createContext, useReducer} from 'react';
 import {Shapes} from './Shapes';
 import Card from "./Card";
 
-const initialState = {deck: [], board: []}
+const initialState = {deck: [], board: [], difficulty: "easy"}
 
 export const GameContext = createContext([]);
 
@@ -74,11 +74,26 @@ function regularGameReducer(state, action) {
     }
 }
 
+function settingGameReducer(state,action){
+    console.log(state.difficulty);
+    if (action.type == "EASY"){
+        return {...state, difficulty: action.payload}
+    }
+    else if (action.type == "MEDIUM"){
+        return {...state, difficulty: action.payload}
+    }
+    else{
+        return {...state,difficulty: action.payload}
+    }
+    
+}
+
 export function GameContextComponent(props) {
     const [rootReducerCombined, initialStateCombined] = combineReducers({
         board: [boardReducer, initialState],
         easyGame: [easyGameReducer, initialState],
-        RegularGame: [regularGameReducer, initialState]});
+        RegularGame: [regularGameReducer, initialState],
+        settingGame: [settingGameReducer, initialState]});
     const [gameState, gameDispatch] = useReducer(rootReducerCombined, initialStateCombined);
 
     return (
