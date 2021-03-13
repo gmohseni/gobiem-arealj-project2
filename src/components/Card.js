@@ -2,13 +2,12 @@ import React from 'react';
 
 
 export default class Card extends React.Component {
-
     render() {
-        
         return (
-            <div className="card-body card-extra" style={{width:"90px", height:"180px"}}>
-                
-                <img src={this.props.type}/>
+            <div className="gy-4">
+                <div className="card border-info" style={{width:"100px", height:"300px"}}>
+                    <img src={this.props.type}/>
+                </div>
             </div>
         )
     }

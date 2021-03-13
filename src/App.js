@@ -1,18 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.css';
-import Card from "./components/Card";
 import {Shapes} from './components/Shapes';
+import {GameContext} from './components/GameContext';
+import Card from "./components/Card";
+
+// const CardsContext = React.createContext(generateCards(Shapes));
+//const [state, dispatch] = useContext(GameContext);
 
 export default class App extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-        cards: ["ThreeSolidStars", "TwoSolidStars", "OneSolidStar"],
-        deck: {}
-    }
-  }
 
   render() {
     return (
@@ -25,9 +20,13 @@ export default class App extends React.Component {
       //   }
       // </div>
       <div className="row">
-        <div className="col py-2">
-          <Card type={Shapes[0].url} quantity={3}/>
-        </div>
+        {
+          Shapes.map((shape) => 
+            <div className="col py-5">
+              <Card type={shape.url}/>
+            </div>
+          )
+        }
       </div>
     )
   }
