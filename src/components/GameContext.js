@@ -35,7 +35,7 @@ function boardReducer(state, action) {
 }
 
 function easyGameReducer(state, action) {
-    if (action.type === "CREATE_DECK") {
+    if (action.type === "CREATE_EASY_DECK") {
         let cards = [];
         Shapes.map((shape) => 
             cards.push(<Card type={shape.url}/>)
@@ -49,17 +49,20 @@ function easyGameReducer(state, action) {
             numberOfCards -= 1;
         }
         return {...state, deck: newDeck};
-    } else if (action.type === "RESET") {
+    } else if (action.type === "RESET_EASY") {
         return {...state, deck: [], board: []}
     }
 }
 
 function regularGameReducer(state, action) {
-    if (action.type === "CREATE_DECK") {
+        
+    if (action.type === "CREATE_REGULAR_DECK") {
+        console.log(action.type);
         let cards = [];
         Shapes.map((shape) => 
             cards.push(<Card type={shape.url}/>)
         )
+        console.log(cards);
         let newDeck = [];
         let numberOfCards = 81;
         while (numberOfCards > 0) {
@@ -69,9 +72,10 @@ function regularGameReducer(state, action) {
             numberOfCards -= 1;
         }
         return {...state, deck: newDeck};
-    } else if (action.type === "RESET") {
-        return {...state, deck: [], board: []}
     }
+    // } else if (action.type === "RESET") {
+    //     return {...state, deck: [], board: []}
+    // }
 }
 
 function settingGameReducer(state, action){

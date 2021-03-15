@@ -7,7 +7,7 @@ export default function HomePage() {
     const [state, dispatch] = useContext(GameContext);
 
      const chooseLevel = () => {
-        console.log(difficulty);
+        // console.log(difficulty);
         dispatch({type:"DIFFICULTY", payload: difficulty});
     }
     
@@ -26,7 +26,7 @@ export default function HomePage() {
                     <button onClick={() => chooseLevel()}>Set Level</button>
                 </div>
                 <div>
-                    <Link exact to={"/game"}>Go!</Link>
+                    <Link to={"/game"}>Go!</Link>
                 </div>
             </div>
         )
