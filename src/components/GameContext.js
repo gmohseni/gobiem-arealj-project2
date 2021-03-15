@@ -80,7 +80,6 @@ function settingGameReducer(state, action){
     } else {
         return state;
     }
-    
 }
 
 export function GameContextComponent(props) {
