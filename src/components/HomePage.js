@@ -1,5 +1,5 @@
 import React, { useContext, useState} from 'react';
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {GameContext} from './GameContext';
 
 export default function HomePage() {
@@ -7,7 +7,6 @@ export default function HomePage() {
     const [state, dispatch] = useContext(GameContext);
 
      const chooseLevel = () => {
-        // console.log(difficulty);
         dispatch({type:"DIFFICULTY", payload: difficulty});
     }
     

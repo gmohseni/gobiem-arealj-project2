@@ -12,7 +12,7 @@ ReactDOM.render(
   <GameContextComponent>
   <Router>
     <Switch>
-      <Route exact path={"/"} component={Home}/>
+      <Route exact path={"/"} component={App}/>
       <Route exact path={"/home"} component={Home}/>
       <Route exact path={"/game"} component={Game}/>
       <Route render={() => <h1>Not found!</h1>} />
