@@ -1,9 +1,9 @@
 import React, { useContext, Route} from 'react';
 import './App.css';
-import {Shapes} from './components/Shapes';
-import Card from "./components/Card";
+// import {Shapes} from './components/Shapes';
+// import Card from "./components/Card";
 import HomePage from './components/HomePage';
-import Game from './components/Game';
+// import Game from './components/Game';
 
 export default function App() {
   //const [state, dispatch] = useContext(GameContext);
