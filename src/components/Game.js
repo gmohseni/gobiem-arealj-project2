@@ -9,6 +9,9 @@ export default function Game() {
         if (state.difficulty === "HARD"){
             dispatch({type:"CREATE_REGULAR_DECK"});
         }
+        else if (state.difficulty === "EASY"){
+            dispatch({type:"CREATE_EASY_DECK"});
+        }
     },[]);
 
     return (

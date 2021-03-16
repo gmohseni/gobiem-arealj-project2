@@ -167,7 +167,7 @@ export let Shapes = [
     {url: seventyEight, id: 78, description: "twoRedPatternSquare"},
     {url: seventyNine, id: 79, description: "twoRedSolidCircle"},
     {url: eighty, id: 80, description: "twoRedSolidRectangle"},
-    {url: eightyOne, id: 81, description: "twoRedSolidSquare"},
+    {url: eightyOne, id: 81, description: "twoRedSolidSquare"}
     
 
 ]
