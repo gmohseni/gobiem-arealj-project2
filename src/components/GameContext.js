@@ -52,14 +52,13 @@ function gameReducer(state, action) {
         Shapes.map((shape, i) =>  {
             cards.push(<Card key={i} type={shape.url}/>)
         })
-        console.log(cards);
+        // console.log(cards);
         let newDeck = [];
         let numberOfCards = 81;
         while (numberOfCards > 0) {
             let randomNumber = Math.floor(Math.random() * numberOfCards);
-            console.log(cards[randomNumber]);
-            newDeck.push(cards[randomNumber]);
-            cards.pop(randomNumber);
+           newDeck.push(cards[randomNumber]);
+            cards.splice(randomNumber, 1)
             numberOfCards -= 1;
         }
         return {...state, deck: newDeck};
@@ -69,7 +68,13 @@ function gameReducer(state, action) {
         return state;
     }
 }
-
+// randomColor() {
+//     let colors = ['green', 'orange', 'blue', 'red', 'black'];
+//     let colors_options = colors.length;
+//     let randomColorIndex = Math.floor(Math.random() * colors_options);
+//     let randomColor = colors[randomColorIndex];
+//     return randomColor;
+//   }
 // function easyGameReducer(state, action) {
 //     if (action.type === "CREATE_EASY_DECK") {
 //         let cards = [];
