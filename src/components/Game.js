@@ -15,7 +15,7 @@ export default function Game() {
             dispatch({type:"CREATE_EASY_DECK"});
             dispatch({type:"CREATE_BOARD"});
         }
-    },[]);
+    },[dispatch]);
 
     return (
        <div>
