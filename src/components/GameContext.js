@@ -4,19 +4,20 @@ import combineReducers from 'react-combine-reducers';
 import {Shapes} from './Shapes';
 import Card from "./Card";
 
-const initialState = {deck: [], board: [], difficulty: "EASY"};
+const initialState = {deck: [], board: [], difficulty: "EASY", currentCardSelection: []};
 
 export const GameContext = createContext();
 
 function gameReducer(state, action) {
+    
     if (action.type === "CREATE_BOARD") {
         let newBoard = [];
         let currentDeck = state.deck;
-        for (let i = currentDeck.length; i >=0; i--) {
-            if (newBoard.length !== 12) {
-                newBoard.push(currentDeck[i]);
-                currentDeck = currentDeck.pop(i);
-            }
+        let numberOfCards = 12;
+        while (numberOfCards > 0) {
+           newBoard.push(currentDeck[numberOfCards - 1]);
+            currentDeck.splice(numberOfCards - 1, 1);
+            numberOfCards -= 1;
         }
         return {...state, deck: currentDeck, board: newBoard};
     } else if (action.type === "ADD_THREE") {
@@ -64,72 +65,20 @@ function gameReducer(state, action) {
         return {...state, deck: newDeck};
     } else if (action.type === "DIFFICULTY") {
         return {...state, difficulty: action.payload};
-    } else {
+    }else if(action.type === "SELECT_CARD"){
+
+
+    }
+    
+    else {
         return state;
     }
 }
 
-// function easyGameReducer(state, action) {
-//     if (action.type === "CREATE_EASY_DECK") {
-//         let cards = [];
-//         Shapes.map((shape) => 
-//             cards.push(<Card type={shape.url}/>)
-//         )
-//         let newDeck = [];
-//         let numberOfCards = 27;
-//         while (numberOfCards > 0) {
-//             let randomNumber = Math.floor(Math.random() * numberOfCards);
-//             newDeck.push(cards[randomNumber]);
-//             cards.pop(randomNumber);
-//             numberOfCards -= 1;
-//         }
-//         return {...state, deck: newDeck};
-//     } else if (action.type === "RESET_EASY") {
-//         return {...state, deck: [], board: []}
-//     }
-// }
 
-// function regularGameReducer(state, action) {
-        
-//     if (action.type === "CREATE_REGULAR_DECK") {
-//         console.log(action.type);
-//         let cards = [];
-//         Shapes.map((shape) => 
-//             cards.push(<Card type={shape.url}/>)
-//         )
-//         console.log(cards);
-//         let newDeck = [];
-//         let numberOfCards = 81;
-//         while (numberOfCards > 0) {
-//             let randomNumber = Math.floor(Math.random() * numberOfCards);
-//             newDeck.push(cards[randomNumber]);
-//             cards.pop(randomNumber);
-//             numberOfCards -= 1;
-//         }
-//         return {...state, deck: newDeck};
-//     }
-//     // } else if (action.type === "RESET") {
-//     //     return {...state, deck: [], board: []}
-//     // }
-// }
-
-// function settingGameReducer(state, action){
-//     if (action.type === "DIFFICULTY") {
-//         return {...state, difficulty: action.payload};
-//     } else {
-//         return state;
-//     }
-// }
 
 export function GameContextComponent(props) {
-    // const [rootReducerCombined, initialStateCombined] = combineReducers({
-    //     board: [boardReducer, initialState],
-    //     easyGame: [easyGameReducer, initialState],
-    //     RegularGame: [regularGameReducer, initialState],
-    //     settingGame: [settingGameReducer, initialState]});
-    // const [gameState, gameDispatch] = useReducer(rootReducerCombined, initialStateCombined);
     const [state, dispatch] = useReducer(gameReducer, initialState);
-
     return (
         <GameContext.Provider value={[state, dispatch]}>
             {props.children}

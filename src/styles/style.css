@@ -1,4 +1,28 @@
-.deck {
+.board {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
+	justify-content:space-between;
 }
+
+.boardContainer{
+    height:auto;
+    width: 600px;
+    margin:5px;
+
+}
+
+.card{
+    border: 5px solid aqua;
+}
+.card:hover{
+    border-color: yellow;
+}
+
+/* need to fix */
+.card:active{
+    border-color:black;
+}
+
+
+
+
