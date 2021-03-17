@@ -18,18 +18,15 @@ function gameReducer(state, action) {
             currentDeck.splice(numberOfCards - 1, 1);
             numberOfCards -= 1;
         }
-        console.log("Board is " + newBoard);
         return {...state, deck: currentDeck, board: newBoard};
     } else if (action.type === "ADD_THREE") {
         let currentBoard = state.board;
         let currentDeck = state.deck;
         let num = 3;
-        for (let i = currentDeck.length; i >=0; i--) {
-            if (num !== 0) {
-                currentBoard.push(currentDeck[i]);
-                currentDeck = currentDeck.pop(i);
-                num -= 1;
-            }
+        while(num > 0) {
+            currentBoard.push(currentDeck[num - 1]);
+            currentDeck.splice(num - 1, 1);
+            num -= 1;
         }
         return {...state, deck: currentDeck, board: currentBoard};
     } else if (action.type === "CREATE_EASY_DECK") {
@@ -45,10 +42,7 @@ function gameReducer(state, action) {
             cards.splice(randomNumber, 1)
             numberOfCards -= 1;
         }
-        console.log("deck is " + newDeck);
         return {...state, deck: newDeck};
-    } else if (action.type === "RESET_EASY") {
-        return {...state, deck: [], board: []}
     } else if (action.type === "CREATE_REGULAR_DECK") {
         let cards = [];
         Shapes.map((shape, i) =>  {
@@ -66,7 +60,6 @@ function gameReducer(state, action) {
     } else if (action.type === "DIFFICULTY") {
         return {...state, difficulty: action.payload};
     } else if(action.type === "SELECT_CARD") {
-        console.log("there");
         return {...state, currentCardSelection: state.currentCardSelection.concat(action.payload)};
     } else {
         return state;
