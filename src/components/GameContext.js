@@ -42,7 +42,7 @@ function gameReducer(state, action) {
             cards.splice(randomNumber, 1)
             numberOfCards -= 1;
         }
-        return {...state, deck: newDeck};
+        return {...state, deck: newDeck, currentCardSelection: []};
     } else if (action.type === "CREATE_REGULAR_DECK") {
         let cards = [];
         Shapes.map((shape, i) =>  {
@@ -56,7 +56,7 @@ function gameReducer(state, action) {
             cards.splice(randomNumber, 1)
             numberOfCards -= 1;
         }
-        return {...state, deck: newDeck};
+        return {...state, deck: newDeck, currentCardSelection: []};
     } else if (action.type === "DIFFICULTY") {
         return {...state, difficulty: action.payload};
     } else if(action.type === "SELECT_CARD") {
