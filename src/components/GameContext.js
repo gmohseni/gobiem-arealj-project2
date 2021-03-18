@@ -46,7 +46,7 @@ function gameReducer(state, action) {
     } else if (action.type === "CREATE_REGULAR_DECK") {
         let cards = [];
         Shapes.map((shape, i) =>  {
-            return cards.push(<Card key={i} id={shape.id} type={shape.url}/>)
+            return cards.push(<Card key={i} id={shape.id} value={false} type={shape.url}/>)
         })
         let newDeck = [];
         let numberOfCards = 81;
@@ -60,7 +60,22 @@ function gameReducer(state, action) {
     } else if (action.type === "DIFFICULTY") {
         return {...state, difficulty: action.payload};
     } else if(action.type === "SELECT_CARD") {
-        return {...state, currentCardSelection: state.currentCardSelection.concat(action.payload)};
+        let i = 0;
+        let copyBoard = [];
+        while (i < state.board.length){
+            
+            if (action.payload === state.board[i].props.id){
+                let newCard = <Card key={state.board[i].key} id={state.board[i].props.id} value={true} type={state.board[i].props.type}/>
+                copyBoard.push(newCard);
+            }
+            else{
+                copyBoard.push(state.board[i]);
+            }
+            i++;
+            console.log(copyBoard);
+        }
+  
+        return {...state, board: copyBoard, currentCardSelection: state.currentCardSelection.concat(action.payload)};
     } else {
         return state;
     }
