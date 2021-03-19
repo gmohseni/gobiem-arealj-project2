@@ -32,7 +32,7 @@ function gameReducer(state, action) {
     } else if (action.type === "CREATE_EASY_DECK") {
         let cards = [];
         Shapes.slice(0, 27).map((shape, i) =>  {
-            return cards.push(<Card key={i} id={shape.id} type={shape.url}/>)
+            return cards.push(<Card key={i} id={shape.id} type={shape.url} shape={shape.shape} number={shape.number} color={shape.color} fill={shape.fill}/>)
         })
         let newDeck = [];
         let numberOfCards = 27;
@@ -46,7 +46,7 @@ function gameReducer(state, action) {
     } else if (action.type === "CREATE_REGULAR_DECK") {
         let cards = [];
         Shapes.map((shape, i) =>  {
-            return cards.push(<Card key={i} id={shape.id} value={false} type={shape.url}/>)
+            return cards.push(<Card key={i} id={shape.id} value={false} type={shape.url} shape={shape.shape} number={shape.number} color={shape.color} fill={shape.fill}/>)
         })
         let newDeck = [];
         let numberOfCards = 81;
@@ -60,23 +60,76 @@ function gameReducer(state, action) {
     } else if (action.type === "DIFFICULTY") {
         return {...state, difficulty: action.payload};
     } else if(action.type === "SELECT_CARD") {
-        let i = 0;
-        let copyBoard = [];
-        while (i < state.board.length){
-            
-            if (action.payload === state.board[i].props.id){
-                let newCard = <Card key={state.board[i].key} id={state.board[i].props.id} value={true} type={state.board[i].props.type}/>
-                copyBoard.push(newCard);
+        if( !state.currentCardSelection.includes(action.payload)){
+            let i = 0;
+            let copyBoard = [];
+            while (i < state.board.length){
+                if (action.payload === state.board[i].props.id){
+                    let newCard = <Card key={state.board[i].key} id={state.board[i].props.id} value={true} type={state.board[i].props.type} shape={state.board[i].props.shape} number={state.board[i].props.number} color={state.board[i].props.color} fill={state.board[i].props.fill}/>
+                    copyBoard.push(newCard);
+                }
+                else{
+                    copyBoard.push(state.board[i]);
+                }
+                i++;
             }
-            else{
-                copyBoard.push(state.board[i]);
+            return {...state, board: copyBoard, currentCardSelection: state.currentCardSelection.concat(action.payload)};
+
             }
-            i++;
-            console.log(copyBoard);
+        else{
+            return {...state};
         }
-  
-        return {...state, board: copyBoard, currentCardSelection: state.currentCardSelection.concat(action.payload)};
-    } else {
+    }else if(action.type ==="CHECK_SET"){
+        // console.log(state.currentCardSelection);
+        let result = ((Shapes[state.currentCardSelection[0] - 1].shape === Shapes[state.currentCardSelection[1] - 1].shape 
+        && Shapes[state.currentCardSelection[1] - 1].shape === Shapes[state.currentCardSelection[2] - 1].shape
+        && Shapes[state.currentCardSelection[0] - 1].shape === Shapes[state.currentCardSelection[2] - 1].shape) || 
+        (Shapes[state.currentCardSelection[0] - 1].shape !== Shapes[state.currentCardSelection[1] - 1].shape 
+        && Shapes[state.currentCardSelection[1] - 1].shape !== Shapes[state.currentCardSelection[2] - 1].shape
+        && Shapes[state.currentCardSelection[0] - 1].shape !== Shapes[state.currentCardSelection[2] - 1].shape))
+        
+        // console.log(state.currentCardSelection[0].shape === state.currentCardSelection[1].shape);
+        // console.log(state.currentCardSelection[1].shape === state.currentCardSelection[2].shape);
+        // console.log(state.currentCardSelection[0].shape === state.currentCardSelection[2].shape);
+        // console.log(state.currentCardSelection[0].shape !== state.currentCardSelection[1].shape);
+        // console.log(state.currentCardSelection[1].shape !== state.currentCardSelection[2].shape);
+        // console.log(state.currentCardSelection[0].shape !== state.currentCardSelection[2].shape);
+        // console.log(Shapes[state.currentCardSelection[1] - 1].shape);
+        // console.log(state.currentCardSelection[1].props.shape);
+        // console.log(state.currentCardSelection[2].props.shape);
+
+        // &&
+
+        // (((state.currentCardSelection[0].color === state.currentCardSelection[1].color) 
+        // && (state.currentCardSelection[0].color === state.currentCardSelection[2].color) 
+        // && (state.currentCardSelection[1].color === state.currentCardSelection[2].color)) || 
+        // ((state.currentCardSelection[0].color !== state.currentCardSelection[1].color) 
+        // && (state.currentCardSelection[0].color !== state.currentCardSelection[2].color) 
+        // && (state.currentCardSelection[1].color !== state.currentCardSelection[2].color)))
+
+        // &&
+
+        // (((state.currentCardSelection[0].number === state.currentCardSelection[1].number) 
+        // && (state.currentCardSelection[0].number === state.currentCardSelection[2].number) 
+        // && (state.currentCardSelection[1].number === state.currentCardSelection[2].number)) || 
+        // ((state.currentCardSelection[0].number !== state.currentCardSelection[1].number) 
+        // && (state.currentCardSelection[0].number !== state.currentCardSelection[2].number) 
+        // && (state.currentCardSelection[1].number !== state.currentCardSelection[2].number)))
+
+        // &&
+
+        // (((state.currentCardSelection[0].fill === state.currentCardSelection[1].fill) 
+        // && (state.currentCardSelection[0].fill === state.currentCardSelection[2].fill) 
+        // && (state.currentCardSelection[1].fill === state.currentCardSelection[2].fill)) || 
+        // ((state.currentCardSelection[0].fill !== state.currentCardSelection[1].fill) 
+        // && (state.currentCardSelection[0].fill !== state.currentCardSelection[2].fill) 
+        // && (state.currentCardSelection[1].fill !== state.currentCardSelection[2].fill)))) 
+    
+        console.log(result);
+
+    }
+ 
+    else {
         return state;
     }
 }

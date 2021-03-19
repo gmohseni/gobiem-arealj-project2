@@ -6,14 +6,21 @@ const Card = (props) => {
     const [state, dispatch] = useContext(GameContext);
     
     const handleClick = (cardId) => {
-        
         if (state.currentCardSelection.length < 3){
-            console.log("Hello");
-            dispatch({type:"SELECT_CARD", payload: cardId});
-        } else {
-            console.log(state.currentCardSelection);
-            alert("You can only select 3 cards!");
+            dispatch({type:"SELECT_CARD", payload:cardId});
         }
+        else if(state.currentCardSelection.length === 3){
+            dispatch({type:"CHECK_SET"});
+
+        }
+        
+        
+        
+        // if (state.currentCardSelection.length < 3){
+        //     dispatch({type:"SELECT_CARD", payload: cardId});
+        // } else {
+        //     alert("You can only select 3 cards!");
+        // }
     }
 
     const cardSwitch = (value) => {
