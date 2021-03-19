@@ -3,7 +3,7 @@ import {createContext, useReducer} from 'react';
 import {Shapes} from './Shapes';
 import Card from "./Card";
 
-const initialState = {deck: [], board: [], difficulty: "EASY", currentCardSelection: []};
+const initialState = {deck: [], board: [], difficulty: "EASY", currentCardSelection: [], isSet: false};
 
 export const GameContext = createContext();
 
@@ -80,59 +80,80 @@ function gameReducer(state, action) {
             return {...state};
         }
     }else if(action.type ==="CHECK_SET"){
-        // console.log(state.currentCardSelection);
-        let result = ((Shapes[state.currentCardSelection[0] - 1].shape === Shapes[state.currentCardSelection[1] - 1].shape 
+        console.log(state.currentCardSelection);
+        let result = (((Shapes[state.currentCardSelection[0] - 1].shape === Shapes[state.currentCardSelection[1] - 1].shape 
         && Shapes[state.currentCardSelection[1] - 1].shape === Shapes[state.currentCardSelection[2] - 1].shape
         && Shapes[state.currentCardSelection[0] - 1].shape === Shapes[state.currentCardSelection[2] - 1].shape) || 
         (Shapes[state.currentCardSelection[0] - 1].shape !== Shapes[state.currentCardSelection[1] - 1].shape 
         && Shapes[state.currentCardSelection[1] - 1].shape !== Shapes[state.currentCardSelection[2] - 1].shape
         && Shapes[state.currentCardSelection[0] - 1].shape !== Shapes[state.currentCardSelection[2] - 1].shape))
         
-        // console.log(state.currentCardSelection[0].shape === state.currentCardSelection[1].shape);
-        // console.log(state.currentCardSelection[1].shape === state.currentCardSelection[2].shape);
-        // console.log(state.currentCardSelection[0].shape === state.currentCardSelection[2].shape);
-        // console.log(state.currentCardSelection[0].shape !== state.currentCardSelection[1].shape);
-        // console.log(state.currentCardSelection[1].shape !== state.currentCardSelection[2].shape);
-        // console.log(state.currentCardSelection[0].shape !== state.currentCardSelection[2].shape);
-        // console.log(Shapes[state.currentCardSelection[1] - 1].shape);
-        // console.log(state.currentCardSelection[1].props.shape);
-        // console.log(state.currentCardSelection[2].props.shape);
+        &&
+        ((Shapes[state.currentCardSelection[0] - 1].color === Shapes[state.currentCardSelection[1] - 1].color 
+            && Shapes[state.currentCardSelection[1] - 1].color === Shapes[state.currentCardSelection[2] - 1].color
+            && Shapes[state.currentCardSelection[0] - 1].color === Shapes[state.currentCardSelection[2] - 1].color) || 
+            (Shapes[state.currentCardSelection[0] - 1].color !== Shapes[state.currentCardSelection[1] - 1].color 
+            && Shapes[state.currentCardSelection[1] - 1].color !== Shapes[state.currentCardSelection[2] - 1].color
+            && Shapes[state.currentCardSelection[0] - 1].color !== Shapes[state.currentCardSelection[2] - 1].color))
 
-        // &&
+            &&
+        ((Shapes[state.currentCardSelection[0] - 1].number === Shapes[state.currentCardSelection[1] - 1].number 
+            && Shapes[state.currentCardSelection[1] - 1].number === Shapes[state.currentCardSelection[2] - 1].number
+            && Shapes[state.currentCardSelection[0] - 1].number === Shapes[state.currentCardSelection[2] - 1].number) || 
+            (Shapes[state.currentCardSelection[0] - 1].number !== Shapes[state.currentCardSelection[1] - 1].number 
+            && Shapes[state.currentCardSelection[1] - 1].number !== Shapes[state.currentCardSelection[2] - 1].number
+            && Shapes[state.currentCardSelection[0] - 1].number !== Shapes[state.currentCardSelection[2] - 1].number))
 
-        // (((state.currentCardSelection[0].color === state.currentCardSelection[1].color) 
-        // && (state.currentCardSelection[0].color === state.currentCardSelection[2].color) 
-        // && (state.currentCardSelection[1].color === state.currentCardSelection[2].color)) || 
-        // ((state.currentCardSelection[0].color !== state.currentCardSelection[1].color) 
-        // && (state.currentCardSelection[0].color !== state.currentCardSelection[2].color) 
-        // && (state.currentCardSelection[1].color !== state.currentCardSelection[2].color)))
+        
+        &&
+        ((Shapes[state.currentCardSelection[0] - 1].fill === Shapes[state.currentCardSelection[1] - 1].fill 
+            && Shapes[state.currentCardSelection[1] - 1].fill === Shapes[state.currentCardSelection[2] - 1].fill
+            && Shapes[state.currentCardSelection[0] - 1].fill === Shapes[state.currentCardSelection[2] - 1].fill) || 
+            (Shapes[state.currentCardSelection[0] - 1].fill !== Shapes[state.currentCardSelection[1] - 1].fill 
+            && Shapes[state.currentCardSelection[1] - 1].fill !== Shapes[state.currentCardSelection[2] - 1].fill
+            && Shapes[state.currentCardSelection[0] - 1].fill !== Shapes[state.currentCardSelection[2] - 1].fill)))
+        
+            console.log(result);
 
-        // &&
+            if(result){
+                // let setCopy = state.isSet;
+                // console.log(setCopy);
+                // setCopy = true;
+                // console.log(setCopy);
+                return {...state, isSet: true};
 
-        // (((state.currentCardSelection[0].number === state.currentCardSelection[1].number) 
-        // && (state.currentCardSelection[0].number === state.currentCardSelection[2].number) 
-        // && (state.currentCardSelection[1].number === state.currentCardSelection[2].number)) || 
-        // ((state.currentCardSelection[0].number !== state.currentCardSelection[1].number) 
-        // && (state.currentCardSelection[0].number !== state.currentCardSelection[2].number) 
-        // && (state.currentCardSelection[1].number !== state.currentCardSelection[2].number)))
+            } else{
+                return {...state, isSet:false};
+            }
+        }else if(action.type ==="REMOVE_SET"){
+            // let i = 0;
+            // let updatedBoard = [];
+            // console.log(state.currentCardSelection);
+            // while (i < state.board.length){
+            //     if (!state.currentCardSelection.includes(state.board[i].props.id)){
+            //         let newCard = <Card key={state.board[i].key} id={state.board[i].props.id} value={false} type={state.board[i].props.type} shape={state.board[i].props.shape} number={state.board[i].props.number} color={state.board[i].props.color} fill={state.board[i].props.fill}/>
+            //         updatedBoard.push(newCard);
+            //     }
+                
+            //     i++;
+            // }
+            
+            return {...state, currentCardSelection: [], isSet:false};
 
-        // &&
-
-        // (((state.currentCardSelection[0].fill === state.currentCardSelection[1].fill) 
-        // && (state.currentCardSelection[0].fill === state.currentCardSelection[2].fill) 
-        // && (state.currentCardSelection[1].fill === state.currentCardSelection[2].fill)) || 
-        // ((state.currentCardSelection[0].fill !== state.currentCardSelection[1].fill) 
-        // && (state.currentCardSelection[0].fill !== state.currentCardSelection[2].fill) 
-        // && (state.currentCardSelection[1].fill !== state.currentCardSelection[2].fill)))) 
+            }
     
-        console.log(result);
 
-    }
+        
+
+
+
+    
  
     else {
         return state;
     }
-}
+    }
+
 
 export function GameContextComponent(props) {
     const [state, dispatch] = useReducer(gameReducer, initialState);
