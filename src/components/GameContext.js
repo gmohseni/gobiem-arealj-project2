@@ -73,7 +73,7 @@ function gameReducer(state, action) {
                 }
                 i++;
             }
-            return {...state, board: copyBoard, currentCardSelection: state.currentCardSelection.concat(action.payload)};
+            return {...state, board: copyBoard, currentCardSelection: state.currentCardSelection.concat(action.payload), numOfSelectedCards: state.numOfSelectedCards + 1};
 
             }
         else{
@@ -112,43 +112,23 @@ function gameReducer(state, action) {
             (Shapes[state.currentCardSelection[0] - 1].fill !== Shapes[state.currentCardSelection[1] - 1].fill 
             && Shapes[state.currentCardSelection[1] - 1].fill !== Shapes[state.currentCardSelection[2] - 1].fill
             && Shapes[state.currentCardSelection[0] - 1].fill !== Shapes[state.currentCardSelection[2] - 1].fill)))
-        
-            console.log(result);
-
-            if(result){
-                // let setCopy = state.isSet;
-                // console.log(setCopy);
-                // setCopy = true;
-                // console.log(setCopy);
+            if(result) {
                 return {...state, isSet: true};
-
-            } else{
+            } else {
                 return {...state, isSet:false};
             }
-        }else if(action.type ==="REMOVE_SET"){
-            // let i = 0;
-            // let updatedBoard = [];
-            // console.log(state.currentCardSelection);
-            // while (i < state.board.length){
-            //     if (!state.currentCardSelection.includes(state.board[i].props.id)){
-            //         let newCard = <Card key={state.board[i].key} id={state.board[i].props.id} value={false} type={state.board[i].props.type} shape={state.board[i].props.shape} number={state.board[i].props.number} color={state.board[i].props.color} fill={state.board[i].props.fill}/>
-            //         updatedBoard.push(newCard);
-            //     }
-                
-            //     i++;
-            // }
-            
-            return {...state, currentCardSelection: [], isSet:false};
-
+        } else if(action.type ==="REMOVE_SET"){
+            let i = 0;
+            let updatedBoard = [];
+            while (i < state.board.length){
+                if (!state.currentCardSelection.includes(state.board[i].props.id)){
+                    let newCard = <Card key={state.board[i].key} id={state.board[i].props.id} value={false} type={state.board[i].props.type} shape={state.board[i].props.shape} number={state.board[i].props.number} color={state.board[i].props.color} fill={state.board[i].props.fill}/>
+                    updatedBoard.push(newCard);
+                }
+                i++;
             }
-    
-
-        
-
-
-
-    
- 
+            return {...state, board: updatedBoard, currentCardSelection: [], isSet: false};
+            }
     else {
         return state;
     }
