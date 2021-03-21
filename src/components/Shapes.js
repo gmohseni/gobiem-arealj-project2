@@ -110,7 +110,7 @@ export let Shapes = [
     {url: twentyThree, id: 23, number:"one", color:"red", fill:"pattern", shape: "rectangle"},
     {url: twentyFour, id: 24, number:"one", color:"red", fill:"pattern", shape: "square"},
     {url: twentyFive, id: 25, number:"one", color:"red", fill:"solid", shape: "circle"},
-    {url: twentySix, id: 26,  number:"one", color:"red", fill:"solid ", shape: "rectangle"},
+    {url: twentySix, id: 26,  number:"one", color:"red", fill:"solid", shape: "rectangle"},
     {url: twentySeven, id: 27,number:"one", color:"red", fill:"solid", shape: "square"},
 
     {url: twentyEight, id: 28, number:"three", color:"blue", fill:"clear", shape:"circle"},
