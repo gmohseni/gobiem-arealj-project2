@@ -8,31 +8,34 @@ const initialState = {deck: [], board: [], difficulty: "EASY", currentCardSelect
 export const GameContext = createContext();
 
 function gameReducer(state, action) {
-    
     if (action.type === "CREATE_BOARD") {
         let newBoard = [];
         let currentDeck = state.deck;
         let numberOfCards = 12;
-        while (numberOfCards > 0) {
-            newBoard.push(currentDeck[numberOfCards - 1]);
-            currentDeck.splice(numberOfCards - 1, 1);
-            numberOfCards -= 1;
-        }
-        return {...state, deck: currentDeck, board: newBoard};
+            while (numberOfCards > 0) {
+                newBoard.push(currentDeck[numberOfCards - 1]);
+                currentDeck.splice(numberOfCards - 1, 1);
+                numberOfCards -= 1;
+            }
+            return {...state, deck: currentDeck, board: newBoard};
     } else if (action.type === "ADD_THREE") {
         let currentBoard = state.board;
         let currentDeck = state.deck;
-        let num = 3;
-        while(num > 0) {
-            currentBoard.push(currentDeck[num - 1]);
-            currentDeck.splice(num - 1, 1);
-            num -= 1;
+        if (currentDeck.length !== 0) {
+            let num = 3;
+            while(num > 0) {
+                currentBoard.push(currentDeck[num - 1]);
+                currentDeck.splice(num - 1, 1);
+                num -= 1;
+            }
+            return {...state, deck: currentDeck, board: currentBoard};
+        } else {
+            return {...state};
         }
-        return {...state, deck: currentDeck, board: currentBoard};
     } else if (action.type === "CREATE_EASY_DECK") {
         let cards = [];
         Shapes.slice(0, 27).map((shape, i) =>  {
-            return cards.push(<Card key={i} id={shape.id} type={shape.url} shape={shape.shape} number={shape.number} color={shape.color} fill={shape.fill}/>)
+            return cards.push(<Card key={shape.id} id={shape.id} value={false} type={shape.url} shape={shape.shape} number={shape.number} color={shape.color} fill={shape.fill}/>)
         })
         let newDeck = [];
         let numberOfCards = 27;
@@ -46,7 +49,7 @@ function gameReducer(state, action) {
     } else if (action.type === "CREATE_REGULAR_DECK") {
         let cards = [];
         Shapes.map((shape, i) =>  {
-            return cards.push(<Card key={i} id={shape.id} value={false} type={shape.url} shape={shape.shape} number={shape.number} color={shape.color} fill={shape.fill}/>)
+            return cards.push(<Card key={shape.id} id={shape.id} value={false} type={shape.url} shape={shape.shape} number={shape.number} color={shape.color} fill={shape.fill}/>)
         })
         let newDeck = [];
         let numberOfCards = 81;
@@ -74,49 +77,65 @@ function gameReducer(state, action) {
                 i++;
             }
             return {...state, board: copyBoard, currentCardSelection: state.currentCardSelection.concat(action.payload), numOfSelectedCards: state.numOfSelectedCards + 1};
-
             }
         else{
             return {...state};
         }
-    }else if(action.type ==="CHECK_SET"){
-        console.log(state.currentCardSelection);
-        let result = (((Shapes[state.currentCardSelection[0] - 1].shape === Shapes[state.currentCardSelection[1] - 1].shape 
-        && Shapes[state.currentCardSelection[1] - 1].shape === Shapes[state.currentCardSelection[2] - 1].shape
-        && Shapes[state.currentCardSelection[0] - 1].shape === Shapes[state.currentCardSelection[2] - 1].shape) || 
-        (Shapes[state.currentCardSelection[0] - 1].shape !== Shapes[state.currentCardSelection[1] - 1].shape 
-        && Shapes[state.currentCardSelection[1] - 1].shape !== Shapes[state.currentCardSelection[2] - 1].shape
-        && Shapes[state.currentCardSelection[0] - 1].shape !== Shapes[state.currentCardSelection[2] - 1].shape))
-        
-        &&
-        ((Shapes[state.currentCardSelection[0] - 1].color === Shapes[state.currentCardSelection[1] - 1].color 
-            && Shapes[state.currentCardSelection[1] - 1].color === Shapes[state.currentCardSelection[2] - 1].color
-            && Shapes[state.currentCardSelection[0] - 1].color === Shapes[state.currentCardSelection[2] - 1].color) || 
-            (Shapes[state.currentCardSelection[0] - 1].color !== Shapes[state.currentCardSelection[1] - 1].color 
-            && Shapes[state.currentCardSelection[1] - 1].color !== Shapes[state.currentCardSelection[2] - 1].color
-            && Shapes[state.currentCardSelection[0] - 1].color !== Shapes[state.currentCardSelection[2] - 1].color))
+    } else if(action.type ==="CHECK_SET") {
+            let shape = ((Shapes[state.currentCardSelection[0] - 1].shape === Shapes[state.currentCardSelection[1] - 1].shape 
+                && Shapes[state.currentCardSelection[1] - 1].shape === Shapes[state.currentCardSelection[2] - 1].shape
+                && Shapes[state.currentCardSelection[0] - 1].shape === Shapes[state.currentCardSelection[2] - 1].shape) || 
+                (Shapes[state.currentCardSelection[0] - 1].shape !== Shapes[state.currentCardSelection[1] - 1].shape 
+                && Shapes[state.currentCardSelection[1] - 1].shape !== Shapes[state.currentCardSelection[2] - 1].shape
+                && Shapes[state.currentCardSelection[0] - 1].shape !== Shapes[state.currentCardSelection[2] - 1].shape));
 
-            &&
-        ((Shapes[state.currentCardSelection[0] - 1].number === Shapes[state.currentCardSelection[1] - 1].number 
-            && Shapes[state.currentCardSelection[1] - 1].number === Shapes[state.currentCardSelection[2] - 1].number
-            && Shapes[state.currentCardSelection[0] - 1].number === Shapes[state.currentCardSelection[2] - 1].number) || 
-            (Shapes[state.currentCardSelection[0] - 1].number !== Shapes[state.currentCardSelection[1] - 1].number 
-            && Shapes[state.currentCardSelection[1] - 1].number !== Shapes[state.currentCardSelection[2] - 1].number
-            && Shapes[state.currentCardSelection[0] - 1].number !== Shapes[state.currentCardSelection[2] - 1].number))
+            let color = ((Shapes[state.currentCardSelection[0] - 1].color === Shapes[state.currentCardSelection[1] - 1].color 
+                && Shapes[state.currentCardSelection[1] - 1].color === Shapes[state.currentCardSelection[2] - 1].color
+                && Shapes[state.currentCardSelection[0] - 1].color === Shapes[state.currentCardSelection[2] - 1].color) || 
+                (Shapes[state.currentCardSelection[0] - 1].color !== Shapes[state.currentCardSelection[1] - 1].color 
+                && Shapes[state.currentCardSelection[1] - 1].color !== Shapes[state.currentCardSelection[2] - 1].color
+                && Shapes[state.currentCardSelection[0] - 1].color !== Shapes[state.currentCardSelection[2] - 1].color));
+                
+            let number = ((Shapes[state.currentCardSelection[0] - 1].number === Shapes[state.currentCardSelection[1] - 1].number 
+                && Shapes[state.currentCardSelection[1] - 1].number === Shapes[state.currentCardSelection[2] - 1].number
+                && Shapes[state.currentCardSelection[0] - 1].number === Shapes[state.currentCardSelection[2] - 1].number) || 
+                (Shapes[state.currentCardSelection[0] - 1].number !== Shapes[state.currentCardSelection[1] - 1].number 
+                && Shapes[state.currentCardSelection[1] - 1].number !== Shapes[state.currentCardSelection[2] - 1].number
+                && Shapes[state.currentCardSelection[0] - 1].number !== Shapes[state.currentCardSelection[2] - 1].number));
 
-        
-        &&
-        ((Shapes[state.currentCardSelection[0] - 1].fill === Shapes[state.currentCardSelection[1] - 1].fill 
-            && Shapes[state.currentCardSelection[1] - 1].fill === Shapes[state.currentCardSelection[2] - 1].fill
-            && Shapes[state.currentCardSelection[0] - 1].fill === Shapes[state.currentCardSelection[2] - 1].fill) || 
-            (Shapes[state.currentCardSelection[0] - 1].fill !== Shapes[state.currentCardSelection[1] - 1].fill 
-            && Shapes[state.currentCardSelection[1] - 1].fill !== Shapes[state.currentCardSelection[2] - 1].fill
-            && Shapes[state.currentCardSelection[0] - 1].fill !== Shapes[state.currentCardSelection[2] - 1].fill)))
+            let fill = ((Shapes[state.currentCardSelection[0] - 1].fill === Shapes[state.currentCardSelection[1] - 1].fill 
+                && Shapes[state.currentCardSelection[1] - 1].fill === Shapes[state.currentCardSelection[2] - 1].fill
+                && Shapes[state.currentCardSelection[0] - 1].fill === Shapes[state.currentCardSelection[2] - 1].fill) || 
+                (Shapes[state.currentCardSelection[0] - 1].fill !== Shapes[state.currentCardSelection[1] - 1].fill 
+                && Shapes[state.currentCardSelection[1] - 1].fill !== Shapes[state.currentCardSelection[2] - 1].fill
+                && Shapes[state.currentCardSelection[0] - 1].fill !== Shapes[state.currentCardSelection[2] - 1].fill));
+            let result = (shape && color && number && fill);
             if(result) {
                 return {...state, isSet: true};
             } else {
                 return {...state, isSet:false};
             }
+        } else if (action.type === "UNSELECT_CARDS") {
+            let i = 0;
+            let copyBoard = [];
+            while (i < state.board.length){
+                console.log()
+                if (state.currentCardSelection[0] === state.board[i].props.id){
+                    let newCard = <Card key={state.board[i].key} id={state.board[i].props.id} value={false} type={state.board[i].props.type} shape={state.board[i].props.shape} number={state.board[i].props.number} color={state.board[i].props.color} fill={state.board[i].props.fill}/>
+                    copyBoard.push(newCard);
+                } else if (state.currentCardSelection[1] === state.board[i].props.id) {
+                    let newCard = <Card key={state.board[i].key} id={state.board[i].props.id} value={false} type={state.board[i].props.type} shape={state.board[i].props.shape} number={state.board[i].props.number} color={state.board[i].props.color} fill={state.board[i].props.fill}/>
+                    copyBoard.push(newCard);
+                } else if (state.currentCardSelection[2] === state.board[i].props.id) {
+                    let newCard = <Card key={state.board[i].key} id={state.board[i].props.id} value={false} type={state.board[i].props.type} shape={state.board[i].props.shape} number={state.board[i].props.number} color={state.board[i].props.color} fill={state.board[i].props.fill}/>
+                    copyBoard.push(newCard);
+                }
+                else{
+                    copyBoard.push(state.board[i]);
+                }
+                i++;
+            }
+            return {...state, board: copyBoard, currentCardSelection: []};
         } else if(action.type ==="REMOVE_SET"){
             let i = 0;
             let updatedBoard = [];
