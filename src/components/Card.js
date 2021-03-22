@@ -10,7 +10,6 @@ const Card = (props) => {
         if (state.isSet === true && iterateOnce === true){
             alert("Congrats! You have a set.");
             dispatch({type:"REMOVE_SET"});
-            dispatch({type:"ADD_THREE"});
             setIterateOnce(false);
         } else if (state.isSet === false && iterateOnce === true) {
             alert("Sorry! This is not a set.");
@@ -20,11 +19,6 @@ const Card = (props) => {
     },[dispatch, state.isSet, iterateOnce])
     
     const handleClick = (cardId) => {
-        console.log(cardId);
-        console.log(state.board);
-        console.log(state.deck);
-        console.log(state.currentCardSelection);
-        console.log(state.isSet);
         if (state.currentCardSelection.length < 2){
             dispatch({type:"SELECT_CARD", payload:cardId});
         }

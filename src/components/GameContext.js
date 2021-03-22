@@ -5,6 +5,74 @@ import Card from "./Card";
 
 const initialState = {deck: [], board: [], difficulty: "EASY", currentCardSelection: [], isSet: false};
 
+const checkSet = (cardSet) => {
+    let shape = ((Shapes[cardSet[0] - 1].shape === Shapes[cardSet[1] - 1].shape 
+        && Shapes[cardSet[1] - 1].shape === Shapes[cardSet[2] - 1].shape
+        && Shapes[cardSet[0] - 1].shape === Shapes[cardSet[2] - 1].shape) || 
+        (Shapes[cardSet[0] - 1].shape !== Shapes[cardSet[1] - 1].shape 
+        && Shapes[cardSet[1] - 1].shape !== Shapes[cardSet[2] - 1].shape
+        && Shapes[cardSet[0] - 1].shape !== Shapes[cardSet[2] - 1].shape));
+
+    let color = ((Shapes[cardSet[0] - 1].color === Shapes[cardSet[1] - 1].color 
+        && Shapes[cardSet[1] - 1].color === Shapes[cardSet[2] - 1].color
+        && Shapes[cardSet[0] - 1].color === Shapes[cardSet[2] - 1].color) || 
+        (Shapes[cardSet[0] - 1].color !== Shapes[cardSet[1] - 1].color 
+        && Shapes[cardSet[1] - 1].color !== Shapes[cardSet[2] - 1].color
+        && Shapes[cardSet[0] - 1].color !== Shapes[cardSet[2] - 1].color));
+        
+    let number = ((Shapes[cardSet[0] - 1].number === Shapes[cardSet[1] - 1].number 
+        && Shapes[cardSet[1] - 1].number === Shapes[cardSet[2] - 1].number
+        && Shapes[cardSet[0] - 1].number === Shapes[cardSet[2] - 1].number) || 
+        (Shapes[cardSet[0] - 1].number !== Shapes[cardSet[1] - 1].number 
+        && Shapes[cardSet[1] - 1].number !== Shapes[cardSet[2] - 1].number
+        && Shapes[cardSet[0] - 1].number !== Shapes[cardSet[2] - 1].number));
+
+    let fill = ((Shapes[cardSet[0] - 1].fill === Shapes[cardSet[1] - 1].fill 
+        && Shapes[cardSet[1] - 1].fill === Shapes[cardSet[2] - 1].fill
+        && Shapes[cardSet[0] - 1].fill === Shapes[cardSet[2] - 1].fill) || 
+        (Shapes[cardSet[0] - 1].fill !== Shapes[cardSet[1] - 1].fill 
+        && Shapes[cardSet[1] - 1].fill !== Shapes[cardSet[2] - 1].fill
+        && Shapes[cardSet[0] - 1].fill !== Shapes[cardSet[2] - 1].fill));
+    let result = (shape && color && number && fill);
+
+    return result;
+
+}
+
+const checkMedBoard = (newBoard) =>{
+    let setFlag = false;
+    for ( let i = 0; i < newBoard.length; i++){
+        for (let j = 1; j < newBoard.length; j++){
+            for (let k = 2; k < newBoard.length; k++){
+                if(newBoard[i].props.id !== newBoard[j].props.id && newBoard[i].props.id !== newBoard[k].props.id && newBoard[j].props.id !== newBoard[k].props.id){
+                    let checkArray = [newBoard[i].props.id, newBoard[j].props.id, newBoard[k].props.id];
+                    if (checkSet(checkArray)){
+                        setFlag = true;
+                    }
+                    
+                }
+            }
+        }
+    }
+    console.log(setFlag);
+    return setFlag;
+}
+
+const addThree = (board,deck) => {
+    let currentBoard = board;
+    let currentDeck = deck;
+    if (currentDeck.length !== 0) {
+        let num = 3;
+        while(num > 0) {
+            currentBoard.push(currentDeck[num - 1]);
+            currentDeck.splice(num - 1, 1);
+            num -= 1;
+        }
+    
+    }
+    return [currentBoard, currentDeck];
+}
+
 export const GameContext = createContext();
 
 function gameReducer(state, action) {
@@ -17,21 +85,19 @@ function gameReducer(state, action) {
                 currentDeck.splice(numberOfCards - 1, 1);
                 numberOfCards -= 1;
             }
+            if(state.difficulty === "MEDIUM"){
+                while ( !checkMedBoard(newBoard)){
+                 let checkMedSet =  addThree(newBoard,currentDeck);
+                    newBoard = checkMedSet[0];
+                    currentDeck = checkMedSet[1];
+                }
+            }
+
             return {...state, deck: currentDeck, board: newBoard};
     } else if (action.type === "ADD_THREE") {
-        let currentBoard = state.board;
-        let currentDeck = state.deck;
-        if (currentDeck.length !== 0) {
-            let num = 3;
-            while(num > 0) {
-                currentBoard.push(currentDeck[num - 1]);
-                currentDeck.splice(num - 1, 1);
-                num -= 1;
-            }
-            return {...state, deck: currentDeck, board: currentBoard};
-        } else {
-            return {...state};
-        }
+       
+      let addResult =  addThree(state.board, state.deck);
+        return {...state, deck: addResult[1], board: addResult[0]};
     } else if (action.type === "CREATE_EASY_DECK") {
         let cards = [];
         Shapes.slice(0, 27).map((shape, i) =>  {
@@ -82,34 +148,7 @@ function gameReducer(state, action) {
             return {...state};
         }
     } else if(action.type ==="CHECK_SET") {
-            let shape = ((Shapes[state.currentCardSelection[0] - 1].shape === Shapes[state.currentCardSelection[1] - 1].shape 
-                && Shapes[state.currentCardSelection[1] - 1].shape === Shapes[state.currentCardSelection[2] - 1].shape
-                && Shapes[state.currentCardSelection[0] - 1].shape === Shapes[state.currentCardSelection[2] - 1].shape) || 
-                (Shapes[state.currentCardSelection[0] - 1].shape !== Shapes[state.currentCardSelection[1] - 1].shape 
-                && Shapes[state.currentCardSelection[1] - 1].shape !== Shapes[state.currentCardSelection[2] - 1].shape
-                && Shapes[state.currentCardSelection[0] - 1].shape !== Shapes[state.currentCardSelection[2] - 1].shape));
-
-            let color = ((Shapes[state.currentCardSelection[0] - 1].color === Shapes[state.currentCardSelection[1] - 1].color 
-                && Shapes[state.currentCardSelection[1] - 1].color === Shapes[state.currentCardSelection[2] - 1].color
-                && Shapes[state.currentCardSelection[0] - 1].color === Shapes[state.currentCardSelection[2] - 1].color) || 
-                (Shapes[state.currentCardSelection[0] - 1].color !== Shapes[state.currentCardSelection[1] - 1].color 
-                && Shapes[state.currentCardSelection[1] - 1].color !== Shapes[state.currentCardSelection[2] - 1].color
-                && Shapes[state.currentCardSelection[0] - 1].color !== Shapes[state.currentCardSelection[2] - 1].color));
-                
-            let number = ((Shapes[state.currentCardSelection[0] - 1].number === Shapes[state.currentCardSelection[1] - 1].number 
-                && Shapes[state.currentCardSelection[1] - 1].number === Shapes[state.currentCardSelection[2] - 1].number
-                && Shapes[state.currentCardSelection[0] - 1].number === Shapes[state.currentCardSelection[2] - 1].number) || 
-                (Shapes[state.currentCardSelection[0] - 1].number !== Shapes[state.currentCardSelection[1] - 1].number 
-                && Shapes[state.currentCardSelection[1] - 1].number !== Shapes[state.currentCardSelection[2] - 1].number
-                && Shapes[state.currentCardSelection[0] - 1].number !== Shapes[state.currentCardSelection[2] - 1].number));
-
-            let fill = ((Shapes[state.currentCardSelection[0] - 1].fill === Shapes[state.currentCardSelection[1] - 1].fill 
-                && Shapes[state.currentCardSelection[1] - 1].fill === Shapes[state.currentCardSelection[2] - 1].fill
-                && Shapes[state.currentCardSelection[0] - 1].fill === Shapes[state.currentCardSelection[2] - 1].fill) || 
-                (Shapes[state.currentCardSelection[0] - 1].fill !== Shapes[state.currentCardSelection[1] - 1].fill 
-                && Shapes[state.currentCardSelection[1] - 1].fill !== Shapes[state.currentCardSelection[2] - 1].fill
-                && Shapes[state.currentCardSelection[0] - 1].fill !== Shapes[state.currentCardSelection[2] - 1].fill));
-            let result = (shape && color && number && fill);
+            let result = checkSet(state.currentCardSelection);
             if(result) {
                 return {...state, isSet: true};
             } else {
@@ -139,6 +178,7 @@ function gameReducer(state, action) {
         } else if(action.type ==="REMOVE_SET"){
             let i = 0;
             let updatedBoard = [];
+            let currentDeck = state.deck;
             while (i < state.board.length){
                 if (!state.currentCardSelection.includes(state.board[i].props.id)){
                     let newCard = <Card key={state.board[i].key} id={state.board[i].props.id} value={false} type={state.board[i].props.type} shape={state.board[i].props.shape} number={state.board[i].props.number} color={state.board[i].props.color} fill={state.board[i].props.fill}/>
@@ -146,7 +186,22 @@ function gameReducer(state, action) {
                 }
                 i++;
             }
-            return {...state, board: updatedBoard, currentCardSelection: [], isSet: false};
+            let addCards = addThree(updatedBoard, currentDeck);
+            updatedBoard = addCards[0];
+            currentDeck = addCards[1];
+            if(state.difficulty === "MEDIUM"){
+                while ( !checkMedBoard(updatedBoard)){
+                    console.log("got here");
+                 let checkMedSet =  addThree(updatedBoard,state.deck);
+                 console.log(checkMedSet);
+                    updatedBoard = checkMedSet[0];
+                    currentDeck = checkMedSet[1];
+                    console.log(updatedBoard);
+                    console.log(currentDeck);
+                }
+            }
+            
+            return {...state, board: updatedBoard, deck:currentDeck, currentCardSelection: [], isSet: false};
             }
     else {
         return state;
