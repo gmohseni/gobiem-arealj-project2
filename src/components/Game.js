@@ -1,6 +1,7 @@
 import React, { useContext, useEffect} from 'react';
 import {GameContext} from './GameContext';
 import Board from './Board';
+import EndGame from './EndGame';
 import '../styles/style.css';
 
 export default function Game() {
@@ -21,18 +22,35 @@ export default function Game() {
         if ((state.difficulty === "HARD") || (state.difficulty === "MEDIUM")){
             dispatch({type:"CREATE_REGULAR_DECK"});
             dispatch({type:"CREATE_BOARD"});
+            dispatch({type:"RESET"});
         }
         else if (state.difficulty === "EASY"){
             dispatch({type:"CREATE_EASY_DECK"});
             dispatch({type:"CREATE_BOARD"});
+            dispatch({type:"RESET"});
         }
     }
 
     return (
-       <div>
-           <button onClick={() => dispatch({type:"ADD_THREE"})}>Add 3 Cards</button>
-           <button onClick={() => resetGame()}>Reset</button>
-           <Board/>
-       </div>
+        <div>
+        {
+        (state.endGame) ? 
+        <EndGame/>
+        : 
+        <>
+        {
+            <div>
+            <button onClick={() => dispatch({type:"ADD_THREE"})}>Add 3 Cards</button>
+            <button onClick={() => resetGame()}>Reset</button>
+            <Board/>
+        </div>
+
+        }
+        </>
+
+
+    }
+    </div>
+       
     )
 }

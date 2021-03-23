@@ -3,7 +3,7 @@ import {createContext, useReducer} from 'react';
 import {Shapes} from './Shapes';
 import Card from "./Card";
 
-const initialState = {deck: [], board: [], difficulty: "EASY", currentCardSelection: [], isSet: false};
+const initialState = {deck: [], board: [], difficulty: "EASY", currentCardSelection: [], isSet: false, endGame: false};
 
 const checkSet = (cardSet) => {
     let shape = ((Shapes[cardSet[0] - 1].shape === Shapes[cardSet[1] - 1].shape 
@@ -186,24 +186,40 @@ function gameReducer(state, action) {
                 }
                 i++;
             }
-            let addCards = addThree(updatedBoard, currentDeck);
-            updatedBoard = addCards[0];
-            currentDeck = addCards[1];
+            if (updatedBoard.length < 12){
+                let addCards = addThree(updatedBoard, currentDeck);
+                updatedBoard = addCards[0];
+                currentDeck = addCards[1];
+            }
+           
             if(state.difficulty === "MEDIUM"){
+
                 while ( !checkMedBoard(updatedBoard)){
-                    console.log("got here");
-                 let checkMedSet =  addThree(updatedBoard,state.deck);
-                 console.log(checkMedSet);
+                if (currentDeck.length === 0){
+                    break;
+                }
+                 else{
+                     let checkMedSet =  addThree(updatedBoard,state.deck);
                     updatedBoard = checkMedSet[0];
                     currentDeck = checkMedSet[1];
-                    console.log(updatedBoard);
-                    console.log(currentDeck);
                 }
             }
-            
+        }
+            if(currentDeck.length === 0 && updatedBoard.length === 0){
+                return {...state, board: updatedBoard, deck:currentDeck, currentCardSelection: [], isSet: false, endGame: true};
+            }
+            else{
             return {...state, board: updatedBoard, deck:currentDeck, currentCardSelection: [], isSet: false};
             }
-    else {
+
+
+
+
+         }else if(action.type === "RESET"){
+            
+            return {...state, endGame: false};
+         }
+          else {
         return state;
     }
     }

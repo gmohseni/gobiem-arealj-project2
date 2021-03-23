@@ -6,6 +6,7 @@ import {GameContextComponent} from './components/GameContext';
 import App from './App';
 import Home from "./components/HomePage";
 import Game from "./components/Game";
+import Rules from "./components/Rules";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 ReactDOM.render(
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Route exact path={"/"} component={App}/>
       <Route exact path={"/home"} component={Home}/>
       <Route exact path={"/game"} component={Game}/>
+      <Route exact path={"/rules"} component={Rules}/>
       <Route render={() => <h1>Not found!</h1>} />
     </Switch>
   </Router>
