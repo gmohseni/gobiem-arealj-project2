@@ -1,6 +1,7 @@
 import React, { useContext, useState} from 'react';
 import {Link} from "react-router-dom";
 import {GameContext} from './GameContext';
+import NavBar from './NavBar';
 
 export default function HomePage() {
     const [difficulty, updateDifficulty] = useState("EASY");
@@ -12,6 +13,7 @@ export default function HomePage() {
     
         return (
             <div>
+                <NavBar/>
                 <h1>Welcome!</h1>
                 <h3>Choose Your Preferred Difficulty</h3>
                 <label htmlFor="difficulty" className="form-label">

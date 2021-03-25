@@ -2,6 +2,7 @@ import React, { useContext, useEffect} from 'react';
 import {GameContext} from './GameContext';
 import Board from './Board';
 import EndGame from './EndGame';
+import NavBar from './NavBar';
 import '../styles/style.css';
 
 export default function Game() {
@@ -33,24 +34,21 @@ export default function Game() {
 
     return (
         <div>
-        {
-        (state.endGame) ? 
-        <EndGame/>
-        : 
-        <>
-        {
-            <div>
-            <button onClick={() => dispatch({type:"ADD_THREE"})}>Add 3 Cards</button>
-            <button onClick={() => resetGame()}>Reset</button>
-            <Board/>
-        </div>
-
-        }
-        </>
-
-
-    }
-    </div>
-       
+            <NavBar/>
+            {
+            (state.endGame) ? 
+                <EndGame/>
+            : 
+            <>
+            {
+                <div>
+                    <button onClick={() => dispatch({type:"ADD_THREE"})}>Add 3 Cards</button>
+                    <button onClick={() => resetGame()}>Reset</button>
+                    <Board/>
+                </div>
+            }
+            </>
+            }
+        </div>  
     )
 }
