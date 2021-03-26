@@ -19,7 +19,10 @@ export default function Board(){
     },[dispatch, state.showAlert, state.alertColor]);
 
     const updateAlert = () => {
-        dispatch({type: "RESET_ALERT"});
+        setTimeout(function(){
+            setAlert(<div></div>);
+            dispatch({type: "RESET_ALERT"});
+       },3000);
     }
 
     return (
