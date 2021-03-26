@@ -6,10 +6,14 @@ export default function EndGame() {
 
     return (
         <div>
+            <div>
             <NavBar/>
+            </div>
+            <div className="container-fluid pageColor">
             <p>
                 Congrats You Finished the Game!
             </p>
+        </div>
         </div>
     )
 }

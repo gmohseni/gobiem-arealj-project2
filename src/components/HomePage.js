@@ -13,7 +13,10 @@ export default function HomePage() {
     
         return (
             <div>
+                <div>
                 <NavBar/>
+                </div>
+                <div className="container-fluid pageColor">
                 <h1>Welcome!</h1>
                 <h3>Choose Your Preferred Difficulty</h3>
                 <label htmlFor="difficulty" className="form-label">
@@ -29,6 +32,7 @@ export default function HomePage() {
                 <div>
                     <Link to={"/game"}>Go!</Link>
                 </div>
+            </div>
             </div>
         )
     }

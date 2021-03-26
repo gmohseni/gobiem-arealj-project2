@@ -1,3 +1,24 @@
+:root{
+    --main-green: #8a9178;
+    --main-dark-gray: #908b7e;
+    --main-pink: #bea394;
+    --main-light-cream: #e8e2dc;
+    --main-brown: #ddcfc2;
+    
+}
+
+.navBarColor{
+    background-color: var(--main-green);
+    justify-content: space-between;
+}
+
+.pageColor{
+    background-color: var(--main-light-cream);
+    height: 100vh;
+}
+
+
+
 .board {
     display: flex;
     flex-wrap: wrap; 
@@ -6,11 +27,15 @@
 
 .boardContainer{
     height:auto;
-    width: 600px;
+    width: 800px;
     margin:5px;
-
+    background-color: white;
 }
 
+.buttonContainer{
+    display:flex;
+    justify-content: space-between;
+}
 .card{
     border: 5px solid aqua;
     margin-left: 2px;

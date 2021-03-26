@@ -9,7 +9,10 @@ export default function Rules() {
 
     return (
         <div>
+            <div>
             <NavBar/>
+            </div>
+            <div className="container-fluid pageColor">
             <h4>Rules</h4>
             <p>The object of the game is to identify a 'Set' of three cards from 12 cards laid out on the table. Each card has a variation of the following four features:</p>
             <ol>
@@ -48,6 +51,7 @@ export default function Rules() {
                     </div>
                 </li>
             </ol>
+            </div>
         </div>
     )
 }

@@ -5,7 +5,7 @@ import '../styles/style.css';
 export default function NavBar() {
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-light navBarColor">
             <div className="container-fluid">
                 <span className="navbar-brand mb-0 h1">Set Game</span>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
