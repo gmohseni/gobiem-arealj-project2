@@ -35,7 +35,7 @@ export default function Game() {
     return (
         <div>
             <div>
-            <NavBar/>
+                <NavBar/>
             </div>
             <div className="container-fluid pageColor">
             {
@@ -44,21 +44,24 @@ export default function Game() {
             : 
             <>
             {
-                <div>
+                <div className="game-container">
                     <div className="row"> 
-                    <div className="col-sm-3"></div>
-                    <div className="buttonContainer">
-                    <button onClick={() => dispatch({type:"ADD_THREE"})}>Add 3 Cards</button>
-                    <button onClick={() => resetGame()}>Reset</button>
-                    </div>
-                    <div className="col-sm-3"></div>
+                        <div className="col-sm-3"></div>
+                        <div className="col-sm-2 text-center">
+                            <button className="button" onClick={() => dispatch({type:"ADD_THREE"})}>Add 3 Cards</button>
+                        </div>
+                        <div className="col-sm-2"></div>
+                        <div className="col-sm-2 text-center">
+                            <button className="button" onClick={() => resetGame()}>Reset</button>
+                        </div>
+                        <div className="col-sm-3"></div>
                     </div>
                     <div className="row">
-                    <div className="col-sm-3"></div>
-                    <div>
-                    <Board/>
-                    </div>
-                    <div className="col-sm-3"></div>
+                        <div className="col-sm-3"></div>
+                            <div className="col-sm-6 game-board-container">
+                                <Board/>
+                            </div>
+                        <div className="col-sm-3"></div>
                     </div>
                 </div>
             }

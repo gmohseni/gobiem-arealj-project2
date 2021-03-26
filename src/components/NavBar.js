@@ -7,11 +7,21 @@ export default function NavBar() {
         <div>
             <nav className="navbar navbar-expand-lg navbar-light navBarColor">
             <div className="container-fluid">
-                <span className="navbar-brand mb-0 h1">Set Game</span>
+                <span className="navbar-brand mb-0">
+                    <h1>Set Game</h1>
+                </span>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item"><Link to={"/home"} style={{textDecoration: "none"}}>Home</Link></li>
-                        <li className="nav-item"><Link to={"/rules"} style={{textDecoration: "none"}}>Rules</Link></li>
+                        <li className="nav-item">
+                            <button className="button">
+                                <Link to={"/home"} style={{textDecoration: "none", color: "#333333"}}>Home</Link>
+                            </button>
+                        </li>
+                        <li className="nav-item">
+                            <button className="button">
+                                <Link to={"/rules"} style={{textDecoration: "none", color: "#333333"}}>Rules</Link>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>

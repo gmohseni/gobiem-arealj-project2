@@ -1,10 +1,13 @@
 :root{
     --main-green: #8a9178;
-    --main-dark-gray: #908b7e;
+    --main-dark-gray: #333333;
     --main-pink: #bea394;
     --main-light-cream: #e8e2dc;
-    --main-brown: #ddcfc2;
-    
+    --main-brown: #ddcfc2;   
+}
+
+h1, h2, h3, h4, h5, h6, p, button, li {
+    color: var(--main-dark-gray);
 }
 
 .navBarColor{
@@ -17,7 +20,13 @@
     height: 100vh;
 }
 
+.game-container {
+    padding-top: 30px;
+}
 
+.game-board-container {
+    padding-top: 20px;
+}
 
 .board {
     display: flex;
@@ -32,10 +41,19 @@
     background-color: white;
 }
 
-.buttonContainer{
-    display:flex;
-    justify-content: space-between;
+/* .buttonContainer{
+    justify-content: center;
+    align-items: center;
+} */
+
+.button {
+    margin: 5px;
+    border-radius: 6px;
+    width: 120px;
+    border: 2px solid var(--main-pink);
+    background-color: var(--main-pink);
 }
+
 .card{
     border: 5px solid aqua;
     margin-left: 2px;
