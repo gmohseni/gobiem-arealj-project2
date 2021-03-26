@@ -8,11 +8,9 @@ export default function Board(){
 
     useEffect(() => {
         if (state.showAlert && state.alertColor === "success") {
-            console.log("is it updating??");
             setAlert(<div className="alert alert-success" role="alert">Congrats! You have found a set.</div>);
             updateAlert();
         } else if (state.showAlert && state.alertColor === "danger") {
-            console.log("is it updating??");
             setAlert(<div className="alert alert-danger" role="alert">Sorry! This is not a set.</div>);
             updateAlert();
         }

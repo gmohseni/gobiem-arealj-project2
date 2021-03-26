@@ -3,7 +3,7 @@ import {createContext, useReducer} from 'react';
 import {Shapes} from './Shapes';
 import Card from "./Card";
 
-const initialState = {deck: [], board: [], difficulty: "EASY", currentCardSelection: [], isSet: false, endGame: false, showAlert: false, alertColor: "success"};
+const initialState = {deck: [], board: [], difficulty: "EASY", currentCardSelection: [], isSet: false, endGame: false, showAlert: false, alertColor: "none"};
 
 const checkSet = (cardSet) => {
     let shape = ((Shapes[cardSet[0] - 1].shape === Shapes[cardSet[1] - 1].shape 
@@ -215,7 +215,6 @@ function gameReducer(state, action) {
         } else if(action.type === "RESET") {
             return {...state, endGame: false};
         } else if (action.type === "RESET_ALERT") {
-            //console.log("am I resetting");
             return {...state, showAlert: false, alertColor: "none"};
         } else {
             return state;

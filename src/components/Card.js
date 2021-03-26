@@ -1,41 +1,21 @@
 import {GameContext} from './GameContext';
-import React, { useContext, useEffect, useState} from 'react';
-
+import React, { useContext, useEffect } from 'react';
 
 const Card = (props) => {
     const [state, dispatch] = useContext(GameContext);
-    // const [iterateOnce, setIterateOnce] = useState(false);
     
     useEffect(() => {
         if (state.isSet === true && state.currentCardSelection.length === 3) {
-            console.log("or here");
             dispatch({type:"REMOVE_SET"});
         } else if (state.isSet === false && state.currentCardSelection.length === 3) {
-            console.log("Am i getting in here");
             dispatch({type: "UNSELECT_CARDS"});
         }
-        // if (state.isSet === true && iterateOnce === true){
-        //     alert("Congrats! You have a set.");
-        //     dispatch({type:"REMOVE_SET"});
-        //     dispatch({type:"ADD_THREE"});
-        //     setIterateOnce(false);
-        // } else if (state.isSet === false && iterateOnce === true) {
-        //     alert("Sorry! This is not a set.");
-        //     dispatch({type: "UNSELECT_CARDS"});
-        //     setIterateOnce(false);
-        // }
     },[dispatch, state.isSet, state.currentCardSelection])
     
     const handleClick = (cardId) => {
-        if (state.currentCardSelection.length < 2){
+        if (state.currentCardSelection.length < 3) {
             dispatch({type:"SELECT_CARD", payload:cardId});
-        }
-        else if(state.currentCardSelection.length === 2){
-            dispatch({type:"SELECT_CARD", payload:cardId});
-            // dispatch({type:"CHECK_SET"});
-            // setIterateOnce(true);
-        }
-        else{
+        } else {
             alert("You can only select 3 cards!");
         }
     }
