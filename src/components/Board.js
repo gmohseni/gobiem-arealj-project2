@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState} from 'react';
 import {GameContext} from './GameContext';
+import Alert from './Alert';
 import '../styles/style.css';
 
 export default function Board(){
@@ -26,7 +27,7 @@ export default function Board(){
     return (
         <div>
             <div className="boardContainer">
-                <div>{alert}</div>
+                <Alert alert={alert}/>
                 <div className="board">{state.board}</div>
             </div>
         </div>
