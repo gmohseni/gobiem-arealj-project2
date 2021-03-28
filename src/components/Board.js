@@ -7,6 +7,13 @@ export default function Board(){
     const [state, dispatch] = useContext(GameContext);
     const [alert, setAlert] = useState(<div></div>);
 
+    const updateAlert = () => {
+        setTimeout(function(){
+            setAlert(<div></div>);
+            dispatch({type: "RESET_ALERT"});
+       },3000);
+    }
+
     useEffect(() => {
         if (state.showAlert && state.alertColor === "success") {
             setAlert(<div className="alert alert-success" role="alert">Congrats! You have found a set.</div>);
@@ -16,13 +23,6 @@ export default function Board(){
             updateAlert();
         }
     },[dispatch, state.showAlert, state.alertColor]);
-
-    const updateAlert = () => {
-        setTimeout(function(){
-            setAlert(<div></div>);
-            dispatch({type: "RESET_ALERT"});
-       },3000);
-    }
 
     return (
         <div>

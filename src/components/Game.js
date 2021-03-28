@@ -4,6 +4,7 @@ import Board from './Board';
 import EndGame from './EndGame';
 import NavBar from './NavBar';
 import '../styles/style.css';
+import HomePage from './HomePage';
 
 export default function Game() {
     const [state, dispatch] = useContext(GameContext);
@@ -40,7 +41,14 @@ export default function Game() {
             <div className="container-fluid background">
                 {
                 (state.endGame) ? 
-                    <EndGame/>
+                    <div>
+                        <EndGame/>
+                        {
+                            setTimeout(function(){
+                                <HomePage/>
+                            },5000)
+                        }
+                    </div>
                 : 
                 <>
                 {

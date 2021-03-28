@@ -9,6 +9,7 @@ export default function HomePage() {
     const [state, dispatch] = useContext(GameContext);
 
     const chooseLevel = () => {
+        dispatch({type: "RESET"});
         dispatch({type:"DIFFICULTY", payload: difficulty});
     }
         return (
