@@ -22,8 +22,8 @@ const Card = (props) => {
     
         const cardSwitch = (value) => {
             if (value) {
-                return <div onClick={() => handleClick(props.id)} className="activeCard" style={{width:"80px", height:"210px"}}>
-                    <img className="activeImg" src={props.type} alt="activeCard"/>
+                return <div onClick={() => handleClick(props.id)} className="active-card" style={{width:"80px", height:"210px"}}>
+                    <img className="active-img" src={props.type} alt="active-card"/>
                 </div>
             } else {
             return <div onClick={() => handleClick(props.id)} className="card" style={{width:"80px", height:"210px"}}>

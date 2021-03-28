@@ -11,8 +11,8 @@ export default function Board(){
         if (state.showAlert && state.alertColor === "success") {
             setAlert(<div className="alert alert-success" role="alert">Congrats! You have found a set.</div>);
             updateAlert();
-        } else if (state.showAlert && state.alertColor === "danger") {
-            setAlert(<div className="alert alert-danger" role="alert">Sorry! This is not a set.</div>);
+        } else if (state.showAlert && state.alertColor === "warning") {
+            setAlert(<div className="alert alert-warning" role="alert">Sorry! This is not a set.</div>);
             updateAlert();
         }
     },[dispatch, state.showAlert, state.alertColor]);
@@ -26,7 +26,7 @@ export default function Board(){
 
     return (
         <div>
-            <div className="boardContainer">
+            <div className="inner-board-container">
                 <Alert alert={alert}/>
                 <div className="board">{state.board}</div>
             </div>

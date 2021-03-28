@@ -37,37 +37,36 @@ export default function Game() {
             <div>
                 <NavBar/>
             </div>
-            <div className="container-fluid pageColor">
-            {
-            (state.endGame) ? 
-                <EndGame/>
-            : 
-            <>
-            {
-                <div className="game-container">
-                    <div className="row"> 
-                        <div className="col-sm-3"></div>
-                        <div className="col-sm-2 text-center">
-                            <button className="button" onClick={() => dispatch({type:"ADD_THREE"})}>Add 3 Cards</button>
+            <div className="container-fluid background">
+                {
+                (state.endGame) ? 
+                    <EndGame/>
+                : 
+                <>
+                {
+                    <div className="game-container">
+                        <div className="row"> 
+                            <div className="col-sm-3"></div>
+                            <div className="col-sm-3 text-center">
+                                <button className="button" onClick={() => dispatch({type:"ADD_THREE"})}>Add 3 Cards</button>
+                            </div>
+                            <div className="col-sm-3 text-center">
+                                <button className="button" onClick={() => resetGame()}>Reset</button>
+                            </div>
+                            <div className="col-sm-3"></div>
                         </div>
-                        <div className="col-sm-2"></div>
-                        <div className="col-sm-2 text-center">
-                            <button className="button" onClick={() => resetGame()}>Reset</button>
-                        </div>
-                        <div className="col-sm-3"></div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-3"></div>
-                            <div className="col-sm-6 game-board-container">
+                        <div className="row">
+                            <div className="col-sm-3"></div>
+                            <div className="col-sm-6 outer-board-container">
                                 <Board/>
                             </div>
-                        <div className="col-sm-3"></div>
+                            <div className="col-sm-3"></div>
+                        </div>
                     </div>
-                </div>
-            }
-            </>
-            }
-        </div>  
+                }
+                </>
+                }
+            </div>  
         </div>
     )
 }

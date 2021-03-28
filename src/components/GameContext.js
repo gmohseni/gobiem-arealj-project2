@@ -145,7 +145,7 @@ function gameReducer(state, action) {
                     return {...state, board: copyBoard, currentCardSelection: copyCurrentSelection, numOfSelectedCards: state.numOfSelectedCards + 1, isSet: true, showAlert: true, alertColor: "success"};
                 } 
                 else {
-                    return {...state, board: copyBoard, currentCardSelection: copyCurrentSelection, numOfSelectedCards: state.numOfSelectedCards + 1, isSet: false, alertColor: "danger"};
+                    return {...state, board: copyBoard, currentCardSelection: copyCurrentSelection, numOfSelectedCards: state.numOfSelectedCards + 1, isSet: false, alertColor: "warning"};
                 }
             } else {
                 return {...state, board: copyBoard, currentCardSelection: copyCurrentSelection, numOfSelectedCards: state.numOfSelectedCards + 1};
@@ -179,7 +179,7 @@ function gameReducer(state, action) {
                 }
                 i++;
             }
-            return {...state, board: copyBoard, currentCardSelection: [], isSet: false, showAlert: true, alertColor: "danger"};
+            return {...state, board: copyBoard, currentCardSelection: [], isSet: false, showAlert: true, alertColor: "warning"};
         } else if(action.type ==="REMOVE_SET") {
             let i = 0;
             let updatedBoard = [];
