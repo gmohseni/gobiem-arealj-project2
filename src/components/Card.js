@@ -15,9 +15,7 @@ const Card = (props) => {
     const handleClick = (cardId) => {
         if (state.currentCardSelection.length < 3) {
             dispatch({type:"SELECT_CARD", payload:cardId});
-        } else {
-            alert("You can only select 3 cards!");
-        }
+        } 
     }
     
         const cardSwitch = (value) => {

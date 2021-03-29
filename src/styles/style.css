@@ -4,7 +4,8 @@
     --main-pink: #bea394;
     --main-light-cream: #e8e2dc;
     --main-brown: #ddcfc2;
-    --main-maroon: #8c2f39;  
+    --main-maroon: #8c2f39;
+    --main-orange: #e28743;   
 }
 
 h1, h2, h3, h4, h5, h6, p, button, li, select, option {
@@ -30,12 +31,18 @@ h1, h2, h3, h4, h5, h6, p, button, li, select, option {
     border: 2px solid var(--main-pink);
     background-color: var(--main-pink);
 }
+.button:hover{
+    border: 2px solid var(--main-orange);
+    background-color: var(--main-orange);
+}
 
 .set-img {
     border-radius: 6px;
     border: 15px solid white;
     background-color: white;
 }
+
+
 
 /* NavBar */ 
 .nav-bar {
@@ -63,7 +70,11 @@ h1, h2, h3, h4, h5, h6, p, button, li, select, option {
     background-color: var(--main-maroon);
     color: white;
 }
+.go-button:hover{
+    border: 2px solid var(--main-orange);
+    background-color:var(--main-orange);
 
+}
 
 /* Rules Page */
 .rules-examples, .list-imgs {
